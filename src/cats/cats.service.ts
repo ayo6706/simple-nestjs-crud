@@ -4,6 +4,7 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { Cat } from './schemas/cat.schema';
 import { Model } from 'mongoose';
+import CatMapper from './dto/cat.mapper';
 
 @Injectable()
 export class CatsService {
@@ -18,8 +19,12 @@ export class CatsService {
   }
 
   findOne(id: string): Promise<Cat> {
-    const result = this.catModel.findById(id)
-    return result;
+    try{
+      return this.catModel.findById(id)
+    }catch(error: any){
+      return error
+    }
+
   }
 
   update(id: string, updateCatDto: UpdateCatDto) {
